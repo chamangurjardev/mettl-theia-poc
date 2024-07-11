@@ -14,6 +14,11 @@
     "@theia/process": "1.50.0",
     "@theia/terminal": "1.50.0",
     "@theia/workspace": "1.50.0",
+    "@theia/plugin": "1.50.0",
+    "@theia/plugin-dev": "1.50.0",
+    "@theia/plugin-ext": "1.50.0",
+    "@theia/plugin-ext-vscode": "1.50.0",
+    "@theia/plugin-metrics": "1.50.0",
     "Mettl-Theia-Ai": "0.0.0"
   },
   "devDependencies": {
@@ -22,10 +27,18 @@
   "scripts": {
     "bundle": "yarn rebuild && theia build --mode development",
     "rebuild": "theia rebuild:browser --cacheRoot ..",
-    "start": "theia start",
+    "start": "theia start --plugins=local-dir:../plugins",
     "watch": "yarn rebuild && theia build --watch --mode development"
   },
+  "theiaPluginsDir": "plugins",
   "theia": {
-    "target": "browser"
+    "target": "browser",
+    "frontend": {
+      "config": {
+        "preferences": {
+          "editor.autoSave": "on"
+        }
+      }
+    }
   }
 }

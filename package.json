@@ -6,14 +6,17 @@
   },
   "scripts": {
     "build:browser": "yarn --cwd browser-app bundle",
-    "build:electron": "yarn --cwd electron-app bundle",
-    "prepare": "lerna run prepare",
+    "prepare": "lerna run prepare && yarn download:plugins",
     "download:plugins": "theia download:plugins",
     "postinstall": "theia check:theia-version",
     "start:browser": "yarn --cwd browser-app start",
     "start:electron": "yarn --cwd electron-app start",
     "watch:browser": "lerna run --parallel watch --ignore electron-app",
     "watch:electron": "lerna run --parallel watch --ignore browser-app"
+  },
+  "theiaPlugins": {
+    "vscode-builtin-javascript": "https://mettl-simulators-upload.s3.ap-south-1.amazonaws.com/fullstack/mettl-theia-plugin/vscode.javascript-1.53.2.vsix",
+    "vscode-builtin-java": "https://mettl-simulators-upload.s3.ap-south-1.amazonaws.com/fullstack/mettl-theia-plugin/vscode.java-1.53.2.vsix"
   },
 
   "devDependencies": {
