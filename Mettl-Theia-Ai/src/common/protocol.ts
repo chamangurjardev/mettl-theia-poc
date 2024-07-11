@@ -1,4 +1,4 @@
-import { JsonRpcServer } from '@theia/core/lib/common/messaging';
+import {JsonRpcServer} from '@theia/core/lib/common/messaging';
 
 export const HelloBackendService = Symbol('HelloBackendService');
 export const HELLO_BACKEND_PATH = '/services/helloBackend';
@@ -15,4 +15,10 @@ export interface HelloBackendWithClientService extends JsonRpcServer<BackendClie
 export const BackendClient = Symbol('BackendClient');
 export interface BackendClient {
     getName(): Promise<string>;
+}
+
+export const METTL_THEIA_SERVICE_BACKEND_PATH = '/services/mettlTheiaAiBackendService';
+export const MettlTheiaAiBackendService = Symbol('HelloBackendService');
+export interface MettlTheiaAiBackendService {
+    getChatGPTResponse(prompt: string): Promise<string>
 }

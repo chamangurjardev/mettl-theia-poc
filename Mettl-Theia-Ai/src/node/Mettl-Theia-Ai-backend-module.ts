@@ -1,8 +1,17 @@
-import { ConnectionHandler, JsonRpcConnectionHandler } from '@theia/core';
-import { ContainerModule } from '@theia/core/shared/inversify';
-import { BackendClient, HelloBackendWithClientService, HelloBackendService, HELLO_BACKEND_PATH, HELLO_BACKEND_WITH_CLIENT_PATH } from '../common/protocol';
-import { HelloBackendWithClientServiceImpl } from './hello-backend-with-client-service';
-import { HelloBackendServiceImpl } from './hello-backend-service';
+import {ConnectionHandler, JsonRpcConnectionHandler} from '@theia/core';
+import {ContainerModule} from '@theia/core/shared/inversify';
+import {
+    BackendClient,
+    HELLO_BACKEND_PATH,
+    HELLO_BACKEND_WITH_CLIENT_PATH,
+    HelloBackendService,
+    HelloBackendWithClientService,
+    METTL_THEIA_SERVICE_BACKEND_PATH,
+    MettlTheiaAiBackendService
+} from '../common/protocol';
+import {HelloBackendWithClientServiceImpl} from './hello-backend-with-client-service';
+import {HelloBackendServiceImpl} from './hello-backend-service';
+import {MettlTheiaAiExtensionServiceImpl} from "./mettl-theia-ai-extension-service-impl";
 
 export default new ContainerModule(bind => {
     bind(HelloBackendService).to(HelloBackendServiceImpl).inSingletonScope()
@@ -21,4 +30,13 @@ export default new ContainerModule(bind => {
             return server;
         })
     ).inSingletonScope();
+
+
+    bind(MettlTheiaAiBackendService).to(MettlTheiaAiExtensionServiceImpl).inSingletonScope()
+    bind(ConnectionHandler).toDynamicValue(ctx =>
+        new JsonRpcConnectionHandler(METTL_THEIA_SERVICE_BACKEND_PATH, () => {
+            return ctx.container.get<MettlTheiaAiBackendService>(MettlTheiaAiBackendService);
+        })
+    ).inSingletonScope();
+
 });
