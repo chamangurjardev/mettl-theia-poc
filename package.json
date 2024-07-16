@@ -24,10 +24,12 @@
   },
   "workspaces": [
     "Mettl-Theia-Ai",
+
     "browser-app",
     "electron-app"
   ],
   "dependencies": {
-    "@types/lodash": "4.17.5"
+    "@types/lodash": "4.17.5",
+    "@theia/plugin": "1.51.0"
   }
 }
